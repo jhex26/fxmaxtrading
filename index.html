@@ -6,727 +6,112 @@
 <title>FXMaxTrading Demo</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#07101d;
-    color:white;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#07101d;
+  color:white;
 }
 
 header{
-    padding:20px;
-    background:#0d1929;
-    border-bottom:1px solid #243b59;
+  padding:20px;
+  background:#0d1929;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
 }
 
 .logo{
-    font-size:28px;
-    font-weight:bold;
+  font-size:28px;
+  font-weight:bold;
 }
 
 .logo span{
-    color:#22dc87;
+  color:#22dc87;
 }
 
 .demo{
-    color:#ffd43b;
-    font-weight:bold;
-    margin-top:8px;
+  color:#ffd43b;
+  font-weight:bold;
 }
 
 main{
-    max-width:1000px;
-    margin:auto;
-    padding:15px;
-}
-
-.card{
-    background:#0e1a2b;
-    border:1px solid #29415f;
-    border-radius:18px;
-    padding:20px;
-    margin-bottom:18px;
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
 }
 
 .warning{
-    color:#22dc87;
-    font-size:22px;
-    font-weight:bold;
+  background:#101f35;
+  border:1px solid #29415f;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:20px;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
+.warning h2{
+  color:#22dc87;
+  margin-top:0;
 }
 
-.label{
-    color:#b8c2d1;
-    font-size:16px;
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-bottom:20px;
 }
 
-.big{
-    font-size:30px;
-    font-weight:bold;
-    margin-top:8px;
+.card{
+  background:#101f35;
+  border:1px solid #29415f;
+  border-radius:18px;
+  padding:20px;
 }
 
-.green{
-    color:#22dc87;
+.card h3{
+  color:#bbb;
+  margin-top:0;
 }
 
-.red{
-    color:#ff6470;
+.balance{
+  font-size:28px;
+  font-weight:bold;
 }
 
-.market-buttons{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
+.market{
+  background:#101f35;
+  border:1px solid #29415f;
+  border-radius:18px;
+  padding:20px;
 }
 
-.market-buttons button{
-    background:#233c60;
-    color:white;
-    border:0;
-    padding:12px 18px;
-    border-radius:10px;
-    font-size:16px;
+.buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
 }
 
-.market-buttons button.active{
-    background:#22dc87;
-    color:#07101d;
+.coin{
+  background:#243b5d;
+  color:white;
+  border:0;
+  padding:13px 20px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.coin.active{
+  background:#22dc87;
+  color:#07101d;
 }
 
 .price{
-    font-size:38px;
-    font-weight:bold;
-    margin:20px 0;
-}
-
-input{
-    width:100%;
-    padding:14px;
-    border-radius:10px;
-    border:1px solid #395373;
-    background:#07101d;
-    color:white;
-    font-size:18px;
-    margin:8px 0 15px;
-}
-
-.trade-buttons{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-
-.trade-buttons button{
-    padding:16px;
-    border:0;
-    border-radius:12px;
-    font-size:20px;
-    font-weight:bold;
-    color:white;
-}
-
-.buy{
-    background:#15945c;
-}
-
-.sell{
-    background:#d74452;
-}
-
-button{
-    cursor:pointer;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th,td{
-    padding:12px 8px;
-    border-bottom:1px solid #263b55;
-    text-align:left;
-}
-
-th{
-    color:#9eacc0;
-}
-
-.empty{
-    color:#8795a8;
-    text-align:center;
-    padding:20px;
-}
-
-@media(max-width:700px){
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    .big{
-        font-size:27px;
-    }
-
-    .price{
-        font-size:32px;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <div class="logo">⚡ FX<span>MAXTRADING</span></div>
-    <div class="demo">DEMO • NO REAL MONEY</div>
-</header>
-
-<main>
-
-<div class="card">
-    <div class="warning">⚠️ DEMO TRADING WEBSITE</div>
-    <p>
-        All balances, prices and transactions are simulated.
-        No real money or cryptocurrency is processed.
-    </p>
-</div>
-
-<div class="grid">
-
-    <div class="card">
-        <div class="label">Demo Balance</div>
-        <div class="big" id="balance">₱10,000.00</div>
-    </div>
-
-    <div class="card">
-        <div class="label">Portfolio</div>
-        <div class="big" id="portfolio">₱10,000.00</div>
-    </div>
-
-    <div class="card">
-        <div class="label">P/L</div>
-        <div class="big green" id="pl">₱0.00</div>
-    </div>
-
-</div>
-
-<div class="card">
-
-    <h2>Markets</h2>
-
-    <div class="market-buttons">
-        <button class="active" onclick="selectMarket('BTC/USDT',65200)">
-            BTC/USDT
-        </button>
-
-        <button onclick="selectMarket('ETH/USDT',3100)">
-            ETH/USDT
-        </button>
-
-        <button onclick="selectMarket('SOL/USDT',145)">
-            SOL/USDT
-        </button>
-    </div>
-
-    <h2 id="marketName">BTC/USDT</h2>
-
-    <div class="price" id="price">$65,200.00</div>
-
-    <label>Trade Amount (₱)</label>
-    <input
-        type="number"
-        id="amount"
-        placeholder="Example: 1000"
-        min="1"
-    >
-
-    <div class="trade-buttons">
-
-        <button class="buy" onclick="trade('BUY')">
-            🟢 BUY
-        </button>
-
-        <button class="sell" onclick="trade('SELL')">
-            🔴 SELL
-        </button>
-
-    </div>
-
-</div>
-
-<div class="card">
-
-    <h2>Open Position</h2>
-
-    <div id="position">
-        <div class="empty">No open position</div>
-    </div>
-
-</div>
-
-<div class="card">
-
-    <h2>Transaction History</h2>
-
-    <div id="history">
-        <div class="empty">No transactions yet</div>
-    </div>
-
-</div>
-
-</main>
-
-<script>
-
-let balance = 10000;
-
-let startingBalance = 10000;
-
-let selectedMarket = "BTC/USDT";
-
-let currentPrice = 65200;
-
-let position = null;
-
-let history = [];
-
-
-/* SELECT MARKET */
-
-function selectMarket(name, price){
-
-    selectedMarket = name;
-
-    currentPrice = price;
-
-    document.getElementById("marketName").innerText = name;
-
-    document.getElementById("price").innerText =
-        "$" + price.toLocaleString(undefined,{
-            minimumFractionDigits:2,
-            maximumFractionDigits:2
-        });
-
-    document.querySelectorAll(".market-buttons button")
-        .forEach(btn => btn.classList.remove("active"));
-
-    event.target.classList.add("active");
-
-    updateDisplay();
-}
-
-
-/* BUY / SELL */
-
-function trade(type){
-
-    let amount = parseFloat(
-        document.getElementById("amount").value
-    );
-
-    if(!amount || amount <= 0){
-
-        alert("Please enter a valid trade amount.");
-
-        return;
-    }
-
-    if(amount > balance){
-
-        alert("Insufficient demo balance.");
-
-        return;
-    }
-
-
-    balance -= amount;
-
-
-    position = {
-
-        type:type,
-
-        market:selectedMarket,
-
-        amount:amount,
-
-        entry:currentPrice,
-
-        time:new Date().toLocaleTimeString()
-
-    };
-
-
-    history.unshift({
-
-        type:type,
-
-        market:selectedMarket,
-
-        amount:amount,
-
-        price:currentPrice,
-
-        time:new Date().toLocaleTimeString()
-
-    });
-
-
-    document.getElementById("amount").value = "";
-
-    updateDisplay();
-
-}
-
-
-/* CALCULATE P/L */
-
-function calculatePL(){
-
-    if(!position){
-
-        return 0;
-
-    }
-
-
-    let change =
-        (currentPrice - position.entry)
-        / position.entry;
-
-
-    let pl = position.amount * change;
-
-
-    if(position.type === "SELL"){
-
-        pl = -pl;
-
-    }
-
-
-    return pl;
-
-}
-
-
-/* UPDATE SCREEN */
-
-function updateDisplay(){
-
-    let pl = calculatePL();
-
-    let portfolio = balance + positionValue();
-
-
-    document.getElementById("balance").innerText =
-        money(balance);
-
-
-    document.getElementById("portfolio").innerText =
-        money(portfolio);
-
-
-    let plElement = document.getElementById("pl");
-
-    plElement.innerText = money(pl);
-
-    plElement.className =
-        "big " + (pl >= 0 ? "green" : "red");
-
-
-    updatePosition();
-
-    updateHistory();
-
-}
-
-
-/* POSITION VALUE */
-
-function positionValue(){
-
-    if(!position){
-
-        return 0;
-
-    }
-
-    return position.amount + calculatePL();
-
-}
-
-
-/* POSITION DISPLAY */
-
-function updatePosition(){
-
-    let box = document.getElementById("position");
-
-    if(!position){
-
-        box.innerHTML =
-            '<div class="empty">No open position</div>';
-
-        return;
-
-    }
-
-
-    let pl = calculatePL();
-
-    let cls = pl >= 0 ? "green" : "red";
-
-
-    box.innerHTML = `
-
-        <table>
-
-            <tr>
-                <th>Market</th>
-                <td>${position.market}</td>
-            </tr>
-
-            <tr>
-                <th>Type</th>
-                <td>${position.type}</td>
-            </tr>
-
-            <tr>
-                <th>Amount</th>
-                <td>${money(position.amount)}</td>
-            </tr>
-
-            <tr>
-                <th>Entry Price</th>
-                <td>$${position.entry.toLocaleString()}</td>
-            </tr>
-
-            <tr>
-                <th>Current Price</th>
-                <td>$${currentPrice.toLocaleString()}</td>
-            </tr>
-
-            <tr>
-                <th>Unrealized P/L</th>
-                <td class="${cls}">
-                    ${money(pl)}
-                </td>
-            </tr>
-
-        </table>
-
-        <br>
-
-        <button
-            onclick="closePosition()"
-            style="
-            width:100%;
-            padding:14px;
-            border:0;
-            border-radius:10px;
-            background:#ffd43b;
-            color:#07101d;
-            font-weight:bold;
-            font-size:17px;
-            "
-        >
-            CLOSE POSITION
-        </button>
-    `;
-}
-
-
-/* CLOSE POSITION */
-
-function closePosition(){
-
-    if(!position){
-
-        return;
-
-    }
-
-
-    let pl = calculatePL();
-
-    balance += position.amount + pl;
-
-
-    history.unshift({
-
-        type:"CLOSE",
-
-        market:position.market,
-
-        amount:position.amount + pl,
-
-        price:currentPrice,
-
-        time:new Date().toLocaleTimeString()
-
-    });
-
-
-    position = null;
-
-    updateDisplay();
-
-
-    alert(
-        "Position closed!\n\n" +
-        "Profit/Loss: " +
-        money(pl)
-    );
-
-}
-
-
-/* HISTORY */
-
-function updateHistory(){
-
-    let box = document.getElementById("history");
-
-
-    if(history.length === 0){
-
-        box.innerHTML =
-            '<div class="empty">No transactions yet</div>';
-
-        return;
-
-    }
-
-
-    let html = `
-
-        <table>
-
-            <tr>
-                <th>Action</th>
-                <th>Market</th>
-                <th>Amount</th>
-                <th>Price</th>
-                <th>Time</th>
-            </tr>
-
-    `;
-
-
-    history.forEach(item => {
-
-        let cls =
-            item.type === "BUY"
-            ? "green"
-            : item.type === "SELL"
-            ? "red"
-            : "";
-
-        html += `
-
-            <tr>
-
-                <td class="${cls}">
-                    ${item.type}
-                </td>
-
-                <td>
-                    ${item.market}
-                </td>
-
-                <td>
-                    ${money(item.amount)}
-                </td>
-
-                <td>
-                    $${item.price.toLocaleString()}
-                </td>
-
-                <td>
-                    ${item.time}
-                </td>
-
-            </tr>
-
-        `;
-
-    });
-
-
-    html += "</table>";
-
-    box.innerHTML = html;
-
-}
-
-
-/* MONEY FORMAT */
-
-function money(value){
-
-    let sign = value < 0 ? "-" : "";
-
-    return sign +
-        "₱" +
-        Math.abs(value).toLocaleString(
-            undefined,
-            {
-                minimumFractionDigits:2,
-                maximumFractionDigits:2
-            }
-        );
-
-}
-
-
-/* DEMO PRICE MOVEMENT */
-
-setInterval(function(){
-
-    let movement =
-        (Math.random() - 0.5) * 200;
-
-
-    currentPrice += movement;
-
-
-    if(currentPrice < 1){
-
-        currentPrice = 1;
-
-    }
-
-
-    document.getElementById("price").innerText =
-        "$" +
-        currentPrice.toLocaleString(
-            undefined,
-            {
-                minimumFractionDigits:2,
-                maximumFractionDigits:2
-            }
-        );
-
-
-    updateDisplay();
-
-},3000);
-
-
-/* INITIAL DISPLAY */
-
-updateDisplay();
-
-</script>
-
-</body>
-</html>
+  font-size:32px;
+  font-weight:bold;
+  color:#22dc87;
