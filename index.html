@@ -6,9 +6,7 @@
 <title>FXMaxTrading Demo</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -20,165 +18,86 @@ body{
 header{
   background:#0d192b;
   padding:20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  text-align:center;
 }
 
 .logo{
-  font-size:26px;
+  font-size:30px;
   font-weight:bold;
 }
 
-.logo span{
-  color:#22dc87;
-}
+.logo span{color:#22dc87}
 
 .demo{
   color:#ffd447;
   font-weight:bold;
+  margin-top:8px;
 }
 
-main{
-  max-width:1000px;
-  margin:auto;
+.container{
+  max-width:500px;
+  margin:30px auto;
   padding:20px;
-}
-
-.warning{
-  background:#101e33;
-  border:1px solid #29415f;
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:20px;
-}
-
-.warning h2{
-  color:#22dc87;
-  margin-top:0;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
 }
 
 .card{
   background:#101e33;
   border:1px solid #29415f;
   border-radius:18px;
-  padding:20px;
+  padding:25px;
   margin-bottom:20px;
 }
 
-.card h3{
-  margin-top:0;
-  color:#ccc;
-}
-
-.amount{
-  font-size:28px;
-  font-weight:bold;
-}
-
-.green{
+h2{
   color:#22dc87;
-}
-
-.red{
-  color:#ff6470;
-}
-
-.market-buttons{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.market-buttons button{
-  background:#263e61;
-  color:white;
-  border:0;
-  padding:14px 20px;
-  border-radius:10px;
-  font-size:16px;
-}
-
-.market-buttons button.active{
-  background:#22dc87;
-  color:#07101d;
-  font-weight:bold;
-}
-
-.price{
-  font-size:34px;
-  font-weight:bold;
-  color:#22dc87;
-  margin:15px 0;
 }
 
 input{
   width:100%;
-  padding:14px;
+  padding:15px;
+  margin:8px 0;
   border-radius:10px;
   border:1px solid #405675;
   background:#07101d;
   color:white;
   font-size:16px;
-  margin:8px 0 15px;
-}
-
-.trade-buttons{
-  display:flex;
-  gap:10px;
-}
-
-.trade-buttons button{
-  flex:1;
-  padding:15px;
-  border:0;
-  border-radius:10px;
-  color:white;
-  font-size:18px;
-  font-weight:bold;
-}
-
-.buy{
-  background:#15945c;
-}
-
-.sell{
-  background:#c93645;
 }
 
 button{
-  cursor:pointer;
-}
-
-table{
   width:100%;
-  border-collapse:collapse;
+  padding:15px;
+  margin-top:10px;
+  border:0;
+  border-radius:10px;
+  background:#22dc87;
+  color:#07101d;
+  font-size:17px;
+  font-weight:bold;
 }
 
-th,td{
-  padding:12px 5px;
-  border-bottom:1px solid #29415f;
-  text-align:left;
+.secondary{
+  background:#263e61;
+  color:white;
 }
 
-@media(max-width:700px){
-  .grid{
-    grid-template-columns:1fr;
-  }
+.hidden{
+  display:none;
+}
 
-  header{
-    display:block;
-  }
+.balance{
+  font-size:30px;
+  font-weight:bold;
+  color:#22dc87;
+}
 
-  .demo{
-    margin-top:8px;
-  }
+.message{
+  margin-top:15px;
+  font-weight:bold;
+}
+
+.logout{
+  background:#c93645;
+  color:white;
 }
 </style>
 </head>
@@ -190,224 +109,345 @@ th,td{
   <div class="demo">DEMO • NO REAL MONEY</div>
 </header>
 
-<main>
+<div class="container">
 
-<div class="warning">
-  <h2>⚠️ DEMO TRADING WEBSITE</h2>
-  <p>
-    All balances, prices and transactions are simulated.
-    No real money or cryptocurrency is processed.
-  </p>
+<!-- LOGIN -->
+<div class="card" id="loginBox">
+
+<h2>🔐 Login</h2>
+
+<input
+  type="text"
+  id="loginUser"
+  placeholder="Username"
+>
+
+<input
+  type="password"
+  id="loginPass"
+  placeholder="Password"
+>
+
+<button onclick="login()">LOGIN</button>
+
+<button class="secondary" onclick="showRegister()">
+  CREATE ACCOUNT
+</button>
+
+<div class="message" id="loginMessage"></div>
+
 </div>
 
-<div class="grid">
+
+<!-- REGISTER -->
+<div class="card hidden" id="registerBox">
+
+<h2>📝 Create Account</h2>
+
+<input
+  type="text"
+  id="regUser"
+  placeholder="Choose username"
+>
+
+<input
+  type="password"
+  id="regPass"
+  placeholder="Choose password"
+>
+
+<input
+  type="password"
+  id="regConfirm"
+  placeholder="Confirm password"
+>
+
+<button onclick="register()">
+  REGISTER
+</button>
+
+<button class="secondary" onclick="showLogin()">
+  BACK TO LOGIN
+</button>
+
+<div class="message" id="registerMessage"></div>
+
+</div>
+
+
+<!-- DASHBOARD -->
+<div class="hidden" id="dashboard">
 
 <div class="card">
-  <h3>Demo Balance</h3>
-  <div class="amount" id="balance">₱10,000.00</div>
-</div>
 
-<div class="card">
-  <h3>Portfolio</h3>
-  <div class="amount" id="portfolio">₱10,000.00</div>
-</div>
+<h2>👋 Welcome!</h2>
 
-<div class="card">
-  <h3>P/L</h3>
-  <div class="amount green" id="profit">₱0.00</div>
-</div>
+<p>Logged in as:</p>
+
+<strong id="username"></strong>
 
 </div>
+
 
 <div class="card">
 
-<h2>Markets</h2>
+<h2>💰 Demo Balance</h2>
 
-<div class="market-buttons">
-  <button class="active" onclick="selectMarket('BTC/USDT',65200,this)">
-    BTC/USDT
-  </button>
-
-  <button onclick="selectMarket('ETH/USDT',3200,this)">
-    ETH/USDT
-  </button>
-
-  <button onclick="selectMarket('SOL/USDT',180,this)">
-    SOL/USDT
-  </button>
+<div class="balance" id="balance">
+₱10,000.00
 </div>
 
-<h2 id="marketName">BTC/USDT</h2>
-
-<div class="price" id="marketPrice">$65,200</div>
-
-<label>Amount (PHP)</label>
-<input type="number" id="amount" placeholder="Enter amount">
-
-<div class="trade-buttons">
-  <button class="buy" onclick="buy()">BUY</button>
-  <button class="sell" onclick="sell()">SELL</button>
-</div>
-
-<p id="message"></p>
+<p>Virtual funds only.</p>
 
 </div>
+
 
 <div class="card">
 
-<h2>Transaction History</h2>
+<h2>📊 Portfolio</h2>
 
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Market</th>
-<th>Amount</th>
-<th>Time</th>
-</tr>
-</thead>
-
-<tbody id="history">
-<tr>
-<td colspan="4">No transactions yet.</td>
-</tr>
-</tbody>
-
-</table>
+<div class="balance" id="portfolio">
+₱10,000.00
+</div>
 
 </div>
 
-</main>
+
+<div class="card">
+
+<h2>📈 Markets</h2>
+
+<p>BTC/USDT</p>
+
+<h2>$65,200</h2>
+
+<button onclick="buy()">
+🟢 BUY
+</button>
+
+<button onclick="sell()" class="secondary">
+🔴 SELL
+</button>
+
+<p id="tradeMessage"></p>
+
+</div>
+
+
+<button class="logout" onclick="logout()">
+LOGOUT
+</button>
+
+</div>
+
+</div>
+
 
 <script>
 
 let balance = 10000;
 let portfolio = 10000;
-let selectedMarket = "BTC/USDT";
-let selectedPrice = 65200;
 
-function money(value){
-  return "₱" + value.toLocaleString("en-PH",{
-    minimumFractionDigits:2,
-    maximumFractionDigits:2
-  });
+
+// SHOW REGISTER
+function showRegister(){
+
+  document.getElementById("loginBox")
+    .classList.add("hidden");
+
+  document.getElementById("registerBox")
+    .classList.remove("hidden");
+
 }
 
-function update(){
 
-  document.getElementById("balance").textContent = money(balance);
-  document.getElementById("portfolio").textContent = money(portfolio);
+// SHOW LOGIN
+function showLogin(){
 
-  let profit = portfolio - 10000;
+  document.getElementById("registerBox")
+    .classList.add("hidden");
 
-  let profitElement = document.getElementById("profit");
+  document.getElementById("loginBox")
+    .classList.remove("hidden");
 
-  profitElement.textContent = money(profit);
+}
 
-  if(profit >= 0){
-    profitElement.className = "amount green";
-  }else{
-    profitElement.className = "amount red";
+
+// REGISTER
+function register(){
+
+  let user =
+    document.getElementById("regUser").value.trim();
+
+  let pass =
+    document.getElementById("regPass").value;
+
+  let confirm =
+    document.getElementById("regConfirm").value;
+
+  let msg =
+    document.getElementById("registerMessage");
+
+
+  if(!user || !pass){
+
+    msg.textContent =
+      "Please complete all fields.";
+
+    msg.style.color="#ff6470";
+
+    return;
   }
+
+
+  if(pass !== confirm){
+
+    msg.textContent =
+      "Passwords do not match.";
+
+    msg.style.color="#ff6470";
+
+    return;
+  }
+
+
+  localStorage.setItem("fx_user",user);
+  localStorage.setItem("fx_pass",pass);
+
+
+  msg.textContent =
+    "Account created successfully!";
+
+  msg.style.color="#22dc87";
+
+
+  setTimeout(showLogin,1000);
+
 }
 
-function selectMarket(name,price,button){
 
-  selectedMarket = name;
-  selectedPrice = price;
+// LOGIN
+function login(){
 
-  document.getElementById("marketName").textContent = name;
+  let user =
+    document.getElementById("loginUser").value;
 
-  document.getElementById("marketPrice").textContent =
-    "$" + price.toLocaleString();
+  let pass =
+    document.getElementById("loginPass").value;
 
-  document.querySelectorAll(".market-buttons button")
-    .forEach(btn => btn.classList.remove("active"));
 
-  button.classList.add("active");
+  let savedUser =
+    localStorage.getItem("fx_user");
+
+  let savedPass =
+    localStorage.getItem("fx_pass");
+
+
+  let msg =
+    document.getElementById("loginMessage");
+
+
+  if(user === savedUser && pass === savedPass){
+
+    document.getElementById("loginBox")
+      .classList.add("hidden");
+
+    document.getElementById("dashboard")
+      .classList.remove("hidden");
+
+    document.getElementById("username")
+      .textContent=user;
+
+  }else{
+
+    msg.textContent =
+      "Invalid username or password.";
+
+    msg.style.color="#ff6470";
+
+  }
+
 }
 
+
+// LOGOUT
+function logout(){
+
+  document.getElementById("dashboard")
+    .classList.add("hidden");
+
+  document.getElementById("loginBox")
+    .classList.remove("hidden");
+
+}
+
+
+// BUY DEMO
 function buy(){
 
-  let amount = Number(document.getElementById("amount").value);
+  if(balance >= 1000){
 
-  if(!amount || amount <= 0){
-    showMessage("Please enter a valid amount.","red");
-    return;
+    balance -= 1000;
+    portfolio += 1000;
+
+    update();
+
+    document.getElementById("tradeMessage")
+      .textContent="BUY successful: ₱1,000";
+
+  }else{
+
+    document.getElementById("tradeMessage")
+      .textContent="Insufficient demo balance.";
+
   }
 
-  if(amount > balance){
-    showMessage("Insufficient demo balance.","red");
-    return;
-  }
-
-  balance -= amount;
-  portfolio += amount;
-
-  addTransaction("BUY",amount);
-
-  showMessage(
-    "BUY successful — " + money(amount) +
-    " added to " + selectedMarket,
-    "green"
-  );
-
-  document.getElementById("amount").value = "";
-
-  update();
 }
 
+
+// SELL DEMO
 function sell(){
 
-  let amount = Number(document.getElementById("amount").value);
+  if(portfolio >= 1000){
 
-  if(!amount || amount <= 0){
-    showMessage("Please enter a valid amount.","red");
-    return;
+    portfolio -= 1000;
+    balance += 1000;
+
+    update();
+
+    document.getElementById("tradeMessage")
+      .textContent="SELL successful: ₱1,000";
+
   }
 
-  if(amount > portfolio){
-    showMessage("Insufficient demo portfolio.","red");
-    return;
-  }
-
-  portfolio -= amount;
-  balance += amount;
-
-  addTransaction("SELL",amount);
-
-  showMessage(
-    "SELL successful — " + money(amount) +
-    " sold from " + selectedMarket,
-    "green"
-  );
-
-  document.getElementById("amount").value = "";
-
-  update();
 }
 
-function showMessage(text,color){
 
-  let message = document.getElementById("message");
+// UPDATE BALANCE
+function update(){
 
-  message.textContent = text;
+  document.getElementById("balance")
+    .textContent =
+    "₱" + balance.toLocaleString(
+      "en-PH",
+      {
+        minimumFractionDigits:2
+      }
+    );
 
-  if(color === "green"){
-    message.className = "green";
-  }else{
-    message.className = "red";
-  }
+
+  document.getElementById("portfolio")
+    .textContent =
+    "₱" + portfolio.toLocaleString(
+      "en-PH",
+      {
+        minimumFractionDigits:2
+      }
+    );
+
 }
 
-function addTransaction(type,amount){
+</script>
 
-  let history = document.getElementById("history");
-
-  if(history.children.length === 1 &&
-     history.children[0].children.length === 1){
-
-    history.innerHTML = "";
-  }
-
-  let
+</body>
+</html>
