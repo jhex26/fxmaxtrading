@@ -3,229 +3,225 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>FXMAXTRADING — Demo</title>
+<title>FXMAXTRADING Demo</title>
 
 <style>
 *{box-sizing:border-box}
 
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#060d18;
-color:#fff;
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#050b14;
+ color:#fff;
+ padding-bottom:75px;
 }
 
 header{
-background:#0b1524;
-border-bottom:1px solid #20334d;
-padding:18px 22px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+ padding:18px;
+ background:#0b1524;
+ border-bottom:1px solid #203650;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
 }
 
 .logo{
-font-size:25px;
-font-weight:800;
+ font-size:25px;
+ font-weight:800;
 }
 
 .logo span{color:#22dc87}
 
 .demo{
-color:#ffd43b;
-font-size:13px;
-font-weight:bold;
+ color:#ffd43b;
+ font-size:12px;
+ font-weight:bold;
 }
 
-.container{
-max-width:1100px;
-margin:auto;
-padding:20px;
+main{
+ max-width:1000px;
+ margin:auto;
+ padding:18px;
 }
+
+.page{display:none}
+.page.active{display:block}
 
 .notice{
-background:#0d1b2d;
-border:1px solid #28425f;
-border-radius:15px;
-padding:16px;
-margin-bottom:18px;
+ background:#0d1b2d;
+ border:1px solid #29425f;
+ border-radius:16px;
+ padding:16px;
+ margin-bottom:16px;
 }
 
-.notice strong{color:#22dc87}
+.notice b{color:#22dc87}
 
 .stats{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:12px;
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:12px;
 }
 
-.box{
-background:#0d1929;
-border:1px solid #203650;
-border-radius:15px;
-padding:18px;
+.card{
+ background:#0d1929;
+ border:1px solid #203650;
+ border-radius:16px;
+ padding:18px;
+ margin-bottom:16px;
 }
 
 .label{
-color:#8fa1b8;
-font-size:13px;
+ color:#8497ae;
+ font-size:13px;
 }
 
 .value{
-font-size:23px;
-font-weight:bold;
-margin-top:7px;
+ font-size:25px;
+ font-weight:bold;
+ margin-top:7px;
 }
 
 .green{color:#22dc87}
 .red{color:#ff5967}
 
-.grid{
-display:grid;
-grid-template-columns:2fr 1fr;
-gap:18px;
-margin-top:18px;
+.coin-list{
+ display:flex;
+ gap:8px;
+ overflow-x:auto;
+ padding-bottom:5px;
 }
 
-.market,.trade,.history{
-background:#0d1929;
-border:1px solid #203650;
-border-radius:15px;
-padding:18px;
+.coin-list button{
+ white-space:nowrap;
+ border:0;
+ border-radius:9px;
+ padding:11px 16px;
+ background:#1b304a;
+ color:#fff;
+ font-weight:bold;
 }
 
-.market-buttons{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-bottom:15px;
+.coin-list button.active{
+ background:#22dc87;
+ color:#061018;
 }
 
-.market-buttons button{
-background:#1b304b;
-color:white;
-border:0;
-padding:10px 15px;
-border-radius:8px;
-font-weight:bold;
-}
-
-.market-buttons button.active{
-background:#22dc87;
-color:#061018;
+.market-name{
+ margin-top:18px;
+ color:#9aacbf;
 }
 
 .price{
-font-size:32px;
-font-weight:bold;
-color:#22dc87;
-margin:8px 0 15px;
+ font-size:35px;
+ font-weight:bold;
+ color:#22dc87;
+ margin:5px 0 15px;
+}
+
+.change{
+ font-size:13px;
+ margin-bottom:12px;
 }
 
 .chart{
-height:310px;
-background:#071220;
-border:1px solid #1d344e;
-border-radius:10px;
-overflow:hidden;
+ height:330px;
+ background:#07111f;
+ border:1px solid #1d344d;
+ border-radius:12px;
+ overflow:hidden;
 }
 
 canvas{
-width:100%;
-height:100%;
-display:block;
+ width:100%;
+ height:100%;
+ display:block;
 }
 
-input{
-width:100%;
-padding:13px;
-margin:8px 0 12px;
-border-radius:9px;
-border:1px solid #38516e;
-background:#07101d;
-color:#fff;
-font-size:16px;
+.trade-buttons{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
 }
 
-.action{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:9px;
-}
-
-.action button{
-padding:14px;
-border:0;
-border-radius:9px;
-color:#fff;
-font-size:16px;
-font-weight:bold;
+.trade-buttons button{
+ padding:15px;
+ border:0;
+ border-radius:10px;
+ color:#fff;
+ font-size:17px;
+ font-weight:bold;
 }
 
 .buy{background:#15945c}
 .sell{background:#d74452}
 
-.wallet-buttons{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:8px;
-margin-top:12px;
+input{
+ width:100%;
+ padding:13px;
+ margin:10px 0;
+ border:1px solid #36506d;
+ border-radius:9px;
+ background:#07101d;
+ color:#fff;
+ font-size:16px;
 }
 
-.wallet-buttons button{
-padding:12px;
-border:0;
-border-radius:8px;
-font-weight:bold;
+.bottom{
+ position:fixed;
+ bottom:0;
+ left:0;
+ right:0;
+ height:70px;
+ background:#0a1422;
+ border-top:1px solid #203650;
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ z-index:10;
 }
 
-.deposit{
-background:#22dc87;
-color:#061018;
+.bottom button{
+ background:none;
+ border:0;
+ color:#8294aa;
+ font-size:12px;
 }
 
-.withdraw{
-background:#ffd43b;
-color:#061018;
+.bottom button.active{
+ color:#22dc87;
+}
+
+.icon{
+ display:block;
+ font-size:22px;
+ margin-bottom:3px;
 }
 
 table{
-width:100%;
-border-collapse:collapse;
-font-size:13px;
+ width:100%;
+ border-collapse:collapse;
+ font-size:13px;
 }
 
 th,td{
-padding:10px 5px;
-border-bottom:1px solid #203650;
-text-align:left;
+ padding:10px 5px;
+ border-bottom:1px solid #203650;
+ text-align:left;
 }
 
-th{color:#8496ad}
+th{color:#8294aa}
 
 .empty{
-text-align:center;
-color:#718198;
-padding:20px;
+ text-align:center;
+ color:#708198;
+ padding:20px;
 }
 
-.message{
-min-height:20px;
-text-align:center;
-margin-top:12px;
-font-size:13px;
-}
-
-@media(max-width:800px){
-.stats{grid-template-columns:1fr 1fr}
-.grid{grid-template-columns:1fr}
-}
-
-@media(max-width:500px){
-.stats{grid-template-columns:1fr}
-header{display:block}
-.demo{margin-top:6px}
-.chart{height:250px}
+@media(max-width:600px){
+ .stats{grid-template-columns:1fr}
+ .chart{height:270px}
+ header{padding:15px}
+ .logo{font-size:21px}
 }
 </style>
 </head>
@@ -233,94 +229,99 @@ header{display:block}
 <body>
 
 <header>
-<div class="logo">⚡ FX<span>MAXTRADING</span></div>
-<div class="demo">DEMO • NO REAL MONEY</div>
+ <div class="logo">⚡ FX<span>MAXTRADING</span></div>
+ <div class="demo">DEMO ONLY</div>
 </header>
 
-<div class="container">
+<main>
+
+<!-- HOME -->
+
+<section id="home" class="page active">
 
 <div class="notice">
-<strong>DEMO TRADING PLATFORM</strong><br>
-All balances, deposits, withdrawals and trades are simulated.
-No real money or cryptocurrency is processed.
+ <b>DEMO PLATFORM</b><br>
+ Prices, trades and balances shown here are simulated.
+ No real money or cryptocurrency is processed.
 </div>
 
 <div class="stats">
 
-<div class="box">
-<div class="label">Wallet Balance</div>
-<div class="value" id="balance">₱10,000.00</div>
+<div class="card">
+ <div class="label">Balance</div>
+ <div class="value" id="homeBalance">₱10,000.00</div>
 </div>
 
-<div class="box">
-<div class="label">Equity</div>
-<div class="value" id="equity">₱10,000.00</div>
+<div class="card">
+ <div class="label">Equity</div>
+ <div class="value" id="homeEquity">₱10,000.00</div>
 </div>
 
-<div class="box">
-<div class="label">Profit / Loss</div>
-<div class="value green" id="pl">₱0.00</div>
-</div>
-
-<div class="box">
-<div class="label">Account</div>
-<div class="value">Demo #001</div>
+<div class="card">
+ <div class="label">P/L</div>
+ <div class="value green" id="homePL">₱0.00</div>
 </div>
 
 </div>
 
-<div class="grid">
+<div class="card">
+ <h2>Market Overview</h2>
 
-<div class="market">
+<p>BTC/USDT <span id="btcMini" class="green"></span></p>
+<p>ETH/USDT <span id="ethMini" class="green"></span></p>
+<p>SOL/USDT <span id="solMini" class="green"></span></p>
 
-<h2>Markets</h2>
+</div>
 
-<div class="market-buttons">
+</section>
+
+
+<!-- TRADING -->
+
+<section id="trading" class="page">
+
+<div class="card">
+
+<h2>Trading</h2>
+
+<div class="coin-list">
 
 <button class="active"
-onclick="market('BTC/USDT',65000,this)">
+onclick="selectCoin('BTC/USDT',65000,this)">
 BTC/USDT
 </button>
 
 <button
-onclick="market('ETH/USDT',3200,this)">
+onclick="selectCoin('ETH/USDT',3200,this)">
 ETH/USDT
 </button>
 
 <button
-onclick="market('SOL/USDT',180,this)">
+onclick="selectCoin('SOL/USDT',180,this)">
 SOL/USDT
 </button>
 
 </div>
 
-<div id="marketName">BTC/USDT</div>
+<div class="market-name" id="tradeMarket">
+BTC/USDT
+</div>
 
-<div class="price" id="price">
+<div class="price" id="tradePrice">
 $65,000.00
 </div>
 
-<div class="chart">
-<canvas id="chart"></canvas>
+<div id="tradeChange" class="change green">
+LIVE SIMULATION ●
 </div>
-
-</div>
-
-<div>
-
-<div class="trade">
-
-<h2>Trade</h2>
-
-<label>Amount (PHP)</label>
 
 <input
-id="amount"
+id="tradeAmount"
 type="number"
-min="1"
-placeholder="Example: 1000">
+placeholder="Amount in PHP"
+min="1">
 
-<div class="action">
+<div class="trade-buttons">
 
 <button class="buy" onclick="buy()">
 BUY
@@ -332,51 +333,87 @@ SELL
 
 </div>
 
-<div class="message" id="tradeMessage"></div>
+<p id="tradeMessage"></p>
 
 </div>
 
-<div class="trade">
+</section>
 
-<h2>Demo Wallet</h2>
+
+<!-- GRAPH -->
+
+<section id="graph" class="page">
+
+<div class="card">
+
+<h2>Live Graph</h2>
+
+<div class="coin-list">
+
+<button class="active"
+onclick="selectGraph('BTC/USDT',65000,this)">
+BTC/USDT
+</button>
+
+<button
+onclick="selectGraph('ETH/USDT',3200,this)">
+ETH/USDT
+</button>
+
+<button
+onclick="selectGraph('SOL/USDT',180,this)">
+SOL/USDT
+</button>
+
+</div>
+
+<div class="market-name" id="graphMarket">
+BTC/USDT
+</div>
+
+<div class="price" id="graphPrice">
+$65,000.00
+</div>
+
+<div class="chart">
+<canvas id="chart"></canvas>
+</div>
 
 <p class="label">
-Use these buttons only to simulate wallet activity.
+● Live simulated price movement
 </p>
 
-<label>Amount (PHP)</label>
-
-<input
-id="walletAmount"
-type="number"
-min="1"
-placeholder="Example: 500">
-
-<div class="wallet-buttons">
-
-<button
-class="deposit"
-onclick="deposit()">
-DEMO DEPOSIT
-</button>
-
-<button
-class="withdraw"
-onclick="withdraw()">
-DEMO WITHDRAW
-</button>
-
 </div>
 
-<div class="message" id="walletMessage"></div>
+</section>
 
+
+<!-- ACCOUNT -->
+
+<section id="account" class="page">
+
+<div class="card">
+
+<h2>Account</h2>
+
+<div class="label">Demo Account</div>
+
+<div class="value">
+FXMAX-001
 </div>
 
+<br>
+
+<div class="label">Wallet Balance</div>
+
+<div class="value" id="accountBalance">
+₱10,000.00
 </div>
 
 </div>
 
-<div class="history">
+
+<div class="card">
 
 <h2>Transaction History</h2>
 
@@ -390,54 +427,122 @@ No transactions yet.
 
 </div>
 
-</div>
+</section>
+
+</main>
+
+
+<!-- NAVIGATION -->
+
+<nav class="bottom">
+
+<button class="active"
+onclick="showPage('home',this)">
+<span class="icon">⌂</span>
+Home
+</button>
+
+<button
+onclick="showPage('trading',this)">
+<span class="icon">⇄</span>
+Trading
+</button>
+
+<button
+onclick="showPage('graph',this)">
+<span class="icon">⌁</span>
+Graph
+</button>
+
+<button
+onclick="showPage('account',this)">
+<span class="icon">●</span>
+Account
+</button>
+
+</nav>
+
 
 <script>
 
 let balance=10000;
-let startingBalance=10000;
-let currentPrice=65000;
-let currentMarket="BTC/USDT";
+let startBalance=10000;
+
+let market="BTC/USDT";
+let price=65000;
+
+let btc=65000;
+let eth=3200;
+let sol=180;
 
 let prices=[];
+
 let transactions=[];
 
 const canvas=document.getElementById("chart");
 const ctx=canvas.getContext("2d");
 
+
 function money(n){
-return "₱"+Number(n).toLocaleString(
+
+return "₱"+n.toLocaleString(
 "en-PH",
 {
 minimumFractionDigits:2,
 maximumFractionDigits:2
 });
+
 }
 
+
+function showPage(id,button){
+
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+
+document.getElementById(id)
+.classList.add("active");
+
+document.querySelectorAll(".bottom button")
+.forEach(b=>b.classList.remove("active"));
+
+button.classList.add("active");
+
+setTimeout(resize,50);
+
+}
+
+
 function resize(){
+
 canvas.width=canvas.clientWidth;
 canvas.height=canvas.clientHeight;
+
 draw();
+
 }
 
 window.addEventListener("resize",resize);
+
 
 function createPrices(){
 
 prices=[];
 
-let p=currentPrice;
+let p=price;
 
-for(let i=0;i<55;i++){
+for(let i=0;i<60;i++){
 
-p += (Math.random()-0.48)*p*0.006;
+p += (Math.random()-0.48)*p*0.005;
 
 prices.push(p);
 
 }
 
 draw();
+
 }
+
 
 function draw(){
 
@@ -452,7 +557,7 @@ let min=Math.min(...prices);
 let max=Math.max(...prices);
 let range=max-min||1;
 
-ctx.strokeStyle="#17314d";
+ctx.strokeStyle="#17304a";
 ctx.lineWidth=1;
 
 for(let i=1;i<6;i++){
@@ -466,28 +571,20 @@ ctx.stroke();
 
 }
 
-for(let i=1;i<8;i++){
-
-let x=w*i/8;
-
-ctx.beginPath();
-ctx.moveTo(x,0);
-ctx.lineTo(x,h);
-ctx.stroke();
-
-}
-
 ctx.beginPath();
 
 prices.forEach((p,i)=>{
 
 let x=i/(prices.length-1)*w;
 
-let y=h-
+let y=
+h-
 ((p-min)/range)*(h-25)-12;
 
-if(i===0)ctx.moveTo(x,y);
-else ctx.lineTo(x,y);
+if(i===0)
+ctx.moveTo(x,y);
+else
+ctx.lineTo(x,y);
 
 });
 
@@ -497,63 +594,149 @@ ctx.stroke();
 
 }
 
-function updatePrice(){
 
-currentPrice +=
-(Math.random()-0.5)*
-currentPrice*0.004;
+function selectCoin(name,start,button){
 
-if(currentPrice<1)
-currentPrice=1;
+market=name;
+price=start;
 
-prices.push(currentPrice);
+document.getElementById("tradeMarket")
+.innerText=name;
 
-if(prices.length>55)
+document.querySelectorAll(
+"#trading .coin-list button"
+)
+.forEach(b=>b.classList.remove("active"));
+
+button.classList.add("active");
+
+createPrices();
+updateDisplays();
+
+}
+
+
+function selectGraph(name,start,button){
+
+market=name;
+price=start;
+
+document.getElementById("graphMarket")
+.innerText=name;
+
+document.querySelectorAll(
+"#graph .coin-list button"
+)
+.forEach(b=>b.classList.remove("active"));
+
+button.classList.add("active");
+
+createPrices();
+updateDisplays();
+
+}
+
+
+function moveMarket(){
+
+let movement=
+(Math.random()-0.5)
+*price*0.003;
+
+price+=movement;
+
+if(price<0.01)
+price=0.01;
+
+if(market==="BTC/USDT")
+btc=price;
+
+if(market==="ETH/USDT")
+eth=price;
+
+if(market==="SOL/USDT")
+sol=price;
+
+prices.push(price);
+
+if(prices.length>60)
 prices.shift();
 
-document.getElementById("price").innerText=
-"$"+currentPrice.toLocaleString(
+updateDisplays();
+draw();
+
+}
+
+
+function updateDisplays(){
+
+let formatted=
+"$"+price.toLocaleString(
 undefined,
 {
 minimumFractionDigits:2,
 maximumFractionDigits:2
 });
 
-draw();
+document.getElementById(
+"tradePrice"
+).innerText=formatted;
+
+document.getElementById(
+"graphPrice"
+).innerText=formatted;
+
+document.getElementById(
+"btcMini"
+).innerText=
+"$"+btc.toLocaleString();
+
+document.getElementById(
+"ethMini"
+).innerText=
+"$"+eth.toLocaleString();
+
+document.getElementById(
+"solMini"
+).innerText=
+"$"+sol.toLocaleString();
+
+document.getElementById(
+"homeBalance"
+).innerText=money(balance);
+
+document.getElementById(
+"homeEquity"
+).innerText=money(balance);
+
+document.getElementById(
+"accountBalance"
+).innerText=money(balance);
+
+let pl=balance-startBalance;
+
+let plEl=
+document.getElementById("homePL");
+
+plEl.innerText=money(pl);
+
+plEl.className=
+pl>=0
+?"value green"
+:"value red";
 
 }
 
-function market(name,price,button){
-
-currentMarket=name;
-currentPrice=price;
-
-document.getElementById("marketName").innerText=name;
-
-document.querySelectorAll(
-".market-buttons button"
-).forEach(b=>b.classList.remove("active"));
-
-button.classList.add("active");
-
-createPrices();
-updatePrice();
-
-}
 
 function buy(){
 
 let amount=Number(
-document.getElementById("amount").value
+document.getElementById("tradeAmount").value
 );
 
 if(!amount||amount<=0){
 
-message(
-"tradeMessage",
-"Enter a valid amount.",
-"red"
-);
+tradeMessage("Enter a valid amount.");
 
 return;
 
@@ -561,11 +744,7 @@ return;
 
 if(amount>balance){
 
-message(
-"tradeMessage",
-"Insufficient demo balance.",
-"red"
-);
+tradeMessage("Insufficient demo balance.");
 
 return;
 
@@ -578,31 +757,28 @@ addTransaction(
 amount
 );
 
-update();
+updateDisplays();
 
-message(
-"tradeMessage",
-"Demo BUY successful.",
-"green"
+tradeMessage(
+"Demo BUY successful: "+money(amount)
 );
 
-document.getElementById("amount").value="";
+document.getElementById(
+"tradeAmount"
+).value="";
 
 }
+
 
 function sell(){
 
 let amount=Number(
-document.getElementById("amount").value
+document.getElementById("tradeAmount").value
 );
 
 if(!amount||amount<=0){
 
-message(
-"tradeMessage",
-"Enter a valid amount.",
-"red"
-);
+tradeMessage("Enter a valid amount.");
 
 return;
 
@@ -615,156 +791,33 @@ addTransaction(
 amount
 );
 
-update();
+updateDisplays();
 
-message(
-"tradeMessage",
-"Demo SELL successful.",
-"green"
-);
-
-document.getElementById("amount").value="";
-
-}
-
-function deposit(){
-
-let amount=Number(
-document.getElementById("walletAmount").value
-);
-
-if(!amount||amount<=0){
-
-message(
-"walletMessage",
-"Enter a valid amount.",
-"red"
-);
-
-return;
-
-}
-
-balance+=amount;
-
-addTransaction(
-"DEMO DEPOSIT",
-amount
-);
-
-update();
-
-message(
-"walletMessage",
-"Demo deposit added.",
-"green"
+tradeMessage(
+"Demo SELL successful: "+money(amount)
 );
 
 document.getElementById(
-"walletAmount"
+"tradeAmount"
 ).value="";
 
 }
 
-function withdraw(){
 
-let amount=Number(
-document.getElementById("walletAmount").value
-);
+function tradeMessage(text){
 
-if(!amount||amount<=0){
-
-message(
-"walletMessage",
-"Enter a valid amount.",
-"red"
-);
-
-return;
-
-}
-
-if(amount>balance){
-
-message(
-"walletMessage",
-"Insufficient demo balance.",
-"red"
-);
-
-return;
-
-}
-
-balance-=amount;
-
-addTransaction(
-"DEMO WITHDRAW",
-amount
-);
-
-update();
-
-message(
-"walletMessage",
-"Demo withdrawal completed.",
-"green"
-);
-
-document.getElementById(
-"walletAmount"
-).value="";
-
-}
-
-function update(){
-
-document.getElementById(
-"balance"
-).innerText=money(balance);
-
-let pl=balance-startingBalance;
-
-document.getElementById(
-"equity"
-).innerText=money(balance);
-
-let plElement=
-document.getElementById("pl");
-
-plElement.innerText=money(pl);
-
-if(pl>=0){
-
-plElement.className=
-"value green";
-
-}else{
-
-plElement.className=
-"value red";
-
-}
-
-}
-
-function message(id,text,type){
-
-let el=document.getElementById(id);
+let el=
+document.getElementById("tradeMessage");
 
 el.innerText=text;
 
-el.className=
-"message "+type;
-
 setTimeout(
-()=>{
-el.innerText="";
-},
+()=>el.innerText="",
 3000
 );
 
 }
+
 
 function addTransaction(type,amount){
 
@@ -772,13 +825,14 @@ transactions.unshift({
 
 type:type,
 
-market:currentMarket,
+market:market,
 
 amount:amount,
 
-price:currentPrice,
+price:price,
 
-time:new Date().toLocaleTimeString()
+time:new Date()
+.toLocaleTimeString()
 
 });
 
@@ -786,9 +840,11 @@ renderHistory();
 
 }
 
+
 function renderHistory(){
 
-let box=document.getElementById("history");
+let box=
+document.getElementById("history");
 
 if(transactions.length===0){
 
@@ -807,24 +863,22 @@ let html=`
 <th>Type</th>
 <th>Market</th>
 <th>Amount</th>
-<th>Price</th>
 <th>Time</th>
 </tr>
-
 `;
 
 transactions.forEach(t=>{
 
-let c=t.type.includes("WITHDRAW")||
-t.type==="SELL"
-?"red"
-:"green";
+let color=
+t.type==="BUY"
+?"green"
+:"red";
 
 html+=`
 
 <tr>
 
-<td class="${c}">
+<td class="${color}">
 ${t.type}
 </td>
 
@@ -837,15 +891,10 @@ ${money(t.amount)}
 </td>
 
 <td>
-$${t.price.toLocaleString()}
-</td>
-
-<td>
 ${t.time}
 </td>
 
 </tr>
-
 `;
 
 });
@@ -856,13 +905,16 @@ box.innerHTML=html;
 
 }
 
+
 createPrices();
+
 resize();
-update();
+
+updateDisplays();
 
 setInterval(
-updatePrice,
-3000
+moveMarket,
+1000
 );
 
 </script>
