@@ -1,138 +1,413 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FXMaxTrading Demo</title>
+
 <style>
-body{margin:0;background:#07101d;color:white;font-family:Arial}
-header{padding:20px;background:#0d1929;font-size:22px;font-weight:bold}
-b{color:#22dc87}.demo{float:right;color:#ffd45a;font-size:11px}
-main{padding:15px;max-width:1000px;margin:auto}
-.card{background:#0e1a2b;border:1px solid #263852;border-radius:12px;padding:18px;margin-bottom:15px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.price{font-size:25px;font-weight:bold}
-.green{color:#22dc87}.red{color:#ff6470}
-button{padding:12px;border:0;border-radius:7px;margin:3px;background:#213653;color:white}
-.buy{background:#15945c}.sell{background:#b84350}
-input{padding:12px;width:90%;background:#091321;border:1px solid #30435f;color:white;border-radius:7px}
-.chart{height:220px;background:#091321;padding:10px}
-svg{width:100%;height:100%}
-@media(max-width:600px){.grid{grid-template-columns:1fr 1fr}.demo{display:block}}
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#07101d;
+  color:white;
+}
+
+header{
+  background:#0d192b;
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:26px;
+  font-weight:bold;
+}
+
+.logo span{
+  color:#22dc87;
+}
+
+.demo{
+  color:#ffd447;
+  font-weight:bold;
+}
+
+main{
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
+}
+
+.warning{
+  background:#101e33;
+  border:1px solid #29415f;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:20px;
+}
+
+.warning h2{
+  color:#22dc87;
+  margin-top:0;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.card{
+  background:#101e33;
+  border:1px solid #29415f;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:20px;
+}
+
+.card h3{
+  margin-top:0;
+  color:#ccc;
+}
+
+.amount{
+  font-size:28px;
+  font-weight:bold;
+}
+
+.green{
+  color:#22dc87;
+}
+
+.red{
+  color:#ff6470;
+}
+
+.market-buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.market-buttons button{
+  background:#263e61;
+  color:white;
+  border:0;
+  padding:14px 20px;
+  border-radius:10px;
+  font-size:16px;
+}
+
+.market-buttons button.active{
+  background:#22dc87;
+  color:#07101d;
+  font-weight:bold;
+}
+
+.price{
+  font-size:34px;
+  font-weight:bold;
+  color:#22dc87;
+  margin:15px 0;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  border-radius:10px;
+  border:1px solid #405675;
+  background:#07101d;
+  color:white;
+  font-size:16px;
+  margin:8px 0 15px;
+}
+
+.trade-buttons{
+  display:flex;
+  gap:10px;
+}
+
+.trade-buttons button{
+  flex:1;
+  padding:15px;
+  border:0;
+  border-radius:10px;
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.buy{
+  background:#15945c;
+}
+
+.sell{
+  background:#c93645;
+}
+
+button{
+  cursor:pointer;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,td{
+  padding:12px 5px;
+  border-bottom:1px solid #29415f;
+  text-align:left;
+}
+
+@media(max-width:700px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  header{
+    display:block;
+  }
+
+  .demo{
+    margin-top:8px;
+  }
+}
 </style>
 </head>
 
 <body>
-<header>⚡ FX<b>MAXTRADING</b>
-<span class="demo">DEMO • NO REAL MONEY</span></header>
+
+<header>
+  <div class="logo">⚡ FX<span>MAXTRADING</span></div>
+  <div class="demo">DEMO • NO REAL MONEY</div>
+</header>
 
 <main>
 
-<div class="card">
-⚠️ <b>DEMO WEBSITE</b><br>
-All balances and transactions are simulated. No real money or crypto is processed.
+<div class="warning">
+  <h2>⚠️ DEMO TRADING WEBSITE</h2>
+  <p>
+    All balances, prices and transactions are simulated.
+    No real money or cryptocurrency is processed.
+  </p>
 </div>
 
 <div class="grid">
-<div class="card">Demo Balance<br><span class="price" id="balance">₱10,000.00</span></div>
-<div class="card">Portfolio<br><span class="price">₱10,000.00</span></div>
-<div class="card">P/L<br><span class="price green">₱0.00</span></div>
+
+<div class="card">
+  <h3>Demo Balance</h3>
+  <div class="amount" id="balance">₱10,000.00</div>
 </div>
 
 <div class="card">
+  <h3>Portfolio</h3>
+  <div class="amount" id="portfolio">₱10,000.00</div>
+</div>
+
+<div class="card">
+  <h3>P/L</h3>
+  <div class="amount green" id="profit">₱0.00</div>
+</div>
+
+</div>
+
+<div class="card">
+
 <h2>Markets</h2>
-<button onclick="coin('BTC',65200)">BTC/USDT</button>
-<button onclick="coin('ETH',3520)">ETH/USDT</button>
-<button onclick="coin('SOL',148)">SOL/USDT</button>
-<h2 id="pair">BTC/USDT</h2>
-<div class="price green" id="price">$65,200</div>
 
-<div class="chart">
-<svg viewBox="0 0 1000 300" preserveAspectRatio="none">
-<polyline fill="none" stroke="#22dc87" stroke-width="6"
-points="0,240 80,220 150,235 230,180 300,195 380,140 450,160 530,100 600,125 680,80 750,110 830,60 900,95 1000,45"/>
-</svg>
+<div class="market-buttons">
+  <button class="active" onclick="selectMarket('BTC/USDT',65200,this)">
+    BTC/USDT
+  </button>
+
+  <button onclick="selectMarket('ETH/USDT',3200,this)">
+    ETH/USDT
+  </button>
+
+  <button onclick="selectMarket('SOL/USDT',180,this)">
+    SOL/USDT
+  </button>
 </div>
+
+<h2 id="marketName">BTC/USDT</h2>
+
+<div class="price" id="marketPrice">$65,200</div>
+
+<label>Amount (PHP)</label>
+<input type="number" id="amount" placeholder="Enter amount">
+
+<div class="trade-buttons">
+  <button class="buy" onclick="buy()">BUY</button>
+  <button class="sell" onclick="sell()">SELL</button>
+</div>
+
+<p id="message"></p>
+
 </div>
 
 <div class="card">
-<h2>Trade</h2>
-<button class="buy" onclick="trade('BUY')">BUY</button>
-<button class="sell" onclick="trade('SELL')">SELL</button>
-<br><br>
-<input id="amount" type="number" value="100">
-<p>Amount: <span id="estimate">0.00153374 BTC</span></p>
-</div>
 
-<div class="card">
-<h2>Demo Wallet</h2>
-<button class="buy" onclick="deposit()">＋ Demo Deposit</button>
-<button class="sell" onclick="withdraw()">− Demo Withdraw</button>
-</div>
-
-<div class="card">
 <h2>Transaction History</h2>
-<div id="history">No transactions yet.</div>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Market</th>
+<th>Amount</th>
+<th>Time</th>
+</tr>
+</thead>
+
+<tbody id="history">
+<tr>
+<td colspan="4">No transactions yet.</td>
+</tr>
+</tbody>
+
+</table>
+
 </div>
 
 </main>
 
 <script>
-let balance=10000;
-let current="BTC";
-let price=65200;
 
-function coin(c,p){
-current=c;
-price=p;
-document.getElementById("pair").innerText=c+"/USDT";
-document.getElementById("price").innerText="$"+p.toLocaleString();
+let balance = 10000;
+let portfolio = 10000;
+let selectedMarket = "BTC/USDT";
+let selectedPrice = 65200;
+
+function money(value){
+  return "₱" + value.toLocaleString("en-PH",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
 }
 
-function show(){
-document.getElementById("balance").innerText=
-"₱"+balance.toLocaleString("en-PH",{minimumFractionDigits:2});
+function update(){
+
+  document.getElementById("balance").textContent = money(balance);
+  document.getElementById("portfolio").textContent = money(portfolio);
+
+  let profit = portfolio - 10000;
+
+  let profitElement = document.getElementById("profit");
+
+  profitElement.textContent = money(profit);
+
+  if(profit >= 0){
+    profitElement.className = "amount green";
+  }else{
+    profitElement.className = "amount red";
+  }
 }
 
-function trade(type){
-let amount=Number(document.getElementById("amount").value);
-if(amount<=0)return;
+function selectMarket(name,price,button){
 
-if(type=="BUY"){
-if(amount>balance){
-alert("Insufficient demo balance");
-return;
-}
-balance-=amount;
-}else{
-balance+=amount;
-}
+  selectedMarket = name;
+  selectedPrice = price;
 
-document.getElementById("history").innerHTML=
-"<p>"+type+" "+current+"/USDT — ₱"+amount.toLocaleString()+"</p>"+
-document.getElementById("history").innerHTML;
+  document.getElementById("marketName").textContent = name;
 
-show();
+  document.getElementById("marketPrice").textContent =
+    "$" + price.toLocaleString();
+
+  document.querySelectorAll(".market-buttons button")
+    .forEach(btn => btn.classList.remove("active"));
+
+  button.classList.add("active");
 }
 
-function deposit(){
-let n=Number(prompt("Demo deposit amount:","500"));
-if(n>0){
-balance+=n;
-show();
-}
+function buy(){
+
+  let amount = Number(document.getElementById("amount").value);
+
+  if(!amount || amount <= 0){
+    showMessage("Please enter a valid amount.","red");
+    return;
+  }
+
+  if(amount > balance){
+    showMessage("Insufficient demo balance.","red");
+    return;
+  }
+
+  balance -= amount;
+  portfolio += amount;
+
+  addTransaction("BUY",amount);
+
+  showMessage(
+    "BUY successful — " + money(amount) +
+    " added to " + selectedMarket,
+    "green"
+  );
+
+  document.getElementById("amount").value = "";
+
+  update();
 }
 
-function withdraw(){
-let n=Number(prompt("Demo withdrawal amount:","500"));
-if(n>0 && n<=balance){
-balance-=n;
-show();
-}else if(n>balance){
-alert("Insufficient demo balance");
-}
+function sell(){
+
+  let amount = Number(document.getElementById("amount").value);
+
+  if(!amount || amount <= 0){
+    showMessage("Please enter a valid amount.","red");
+    return;
+  }
+
+  if(amount > portfolio){
+    showMessage("Insufficient demo portfolio.","red");
+    return;
+  }
+
+  portfolio -= amount;
+  balance += amount;
+
+  addTransaction("SELL",amount);
+
+  showMessage(
+    "SELL successful — " + money(amount) +
+    " sold from " + selectedMarket,
+    "green"
+  );
+
+  document.getElementById("amount").value = "";
+
+  update();
 }
 
-show();
-</script>
-</body>
-</html>
+function showMessage(text,color){
+
+  let message = document.getElementById("message");
+
+  message.textContent = text;
+
+  if(color === "green"){
+    message.className = "green";
+  }else{
+    message.className = "red";
+  }
+}
+
+function addTransaction(type,amount){
+
+  let history = document.getElementById("history");
+
+  if(history.children.length === 1 &&
+     history.children[0].children.length === 1){
+
+    history.innerHTML = "";
+  }
+
+  let
